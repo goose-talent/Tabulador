@@ -85,9 +85,41 @@ async def guardar_acta(request: Request):
     else:
         ganador = "Empate"
 
+    oradores = []
+
+    for clave in datos:
+
+        if "_nota_" not in clave:
+            continue
+
+        nota = datos.get(clave)
+
+        if nota == "":
+            continue
+
+        prefijo = clave.split("_nota_")[0]
+        indice = clave.split("_nota_")[1]
+
+        nombre = datos.get(
+            f"{prefijo}_nombre_{indice}"
+        )
+
+        equipo = (
+            datos["equipo_af"]
+            if prefijo == "af"
+            else datos["equipo_ec"]
+        )
+
+        oradores.append({
+            "nombre": nombre,
+            "equipo": equipo,
+            "nota": float(nota)
+        })
     nueva_acta = {
 
         **datos,
+
+        "oradores": oradores,
 
         "penalizacion_af": penalizacion_af,
         "penalizacion_ec": penalizacion_ec,
@@ -286,38 +318,8 @@ async def debates_datos():
         debates = []
 
     return JSONResponse(debates)
-@app.get("/debates/datos")
-async def debates_datos():
 
-    try:
-        with open(
-            os.path.join(BASE_DIR, "datos", "debates.json"),
-            "r",
-            encoding="utf-8"
-        ) as f:
 
-            debates = json.load(f)
-
-    except:
-        debates = []
-
-    return JSONResponse(debates)
-@app.get("/debates/datos")
-async def debates_datos():
-
-    try:
-        with open(
-            os.path.join(BASE_DIR, "datos", "debates.json"),
-            "r",
-            encoding="utf-8"
-        ) as f:
-
-            debates = json.load(f)
-
-    except:
-        debates = []
-
-    return JSONResponse(debates)
 
 
 @app.get("/faltas", response_class=HTMLResponse)
