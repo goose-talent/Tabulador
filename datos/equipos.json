@@ -1,0 +1,163 @@
+[
+  {
+    "colegio": "Colegio Blanca de Castilla A",
+    "centro": "COLEGIO BLANCA DE CASTILLA",
+    "alumnos": [
+      "Pía Rao Noriega",
+      "María Elisa  Saieh Pérez",
+      "Paula Conde-Salazar Rodríguez",
+      "Martín  Barbeito Boado"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "Colegio Blanca de Castilla B",
+    "centro": "COLEGIO BLANCA DE CASTILLA",
+    "alumnos": [
+      "Alejandra Domínguez Alcaraz",
+      "Guillermo Loring Mansilla",
+      "Mariana Teus García",
+      "Beatriz Archanco De Luque",
+      "Juan Clemente Rodríguez Hidalgo"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "Colegio Blanca de Castilla C",
+    "centro": "COLEGIO BLANCA DE CASTILLA",
+    "alumnos": [
+      "Carmen Bolado Gómez",
+      "Julia Velasco Arias",
+      "Alicia Requena Montes",
+      "Lucía Cabezuelo Algaba",
+      "Ana Outón Pérez"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "Colegio Blanca de Castilla D",
+    "centro": "COLEGIO BLANCA DE CASTILLA",
+    "alumnos": [
+      "Paula Álvarez-Uría Fernández",
+      "Laia Hortalá López",
+      "Martina Royo Rodríguez",
+      "Mikel Cardenal Elorduy"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "Divina Pastora A",
+    "centro": "CPR INF-PRI-SEC DIVINA PASTORA\" \"",
+    "alumnos": [
+      "Angie López Guachichulca",
+      "Saray Salas Aguilar",
+      "Eduardo Locquiao Soliven",
+      "Isabella Pérez Rodríguez"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "Divina Pastora B",
+    "centro": "CPR INF-PRI-SEC DIVINA PASTORA\" \"",
+    "alumnos": [
+      "Ana Ferraz Sierra",
+      "Jaira Arielle  Balita Gacusana",
+      "Alejandra Valentina  Galeano Giménez",
+      "Antonio Vallecillos Carabias"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "Esclavas A",
+    "centro": "Colegio Sagrado Corazón de Jesús- Esclavas Chamberí",
+    "alumnos": [
+      "Isabel Pérez Merino",
+      "Begoña García Gómez",
+      "Hilário Caixeiro Santamaría",
+      "Aitana Medem Comba",
+      "Camila Montserrat Hernández Colmenares"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "Esclavas B",
+    "centro": "Colegio Sagrado Corazón de Jesús- Esclavas Chamberí",
+    "alumnos": [
+      "Casilda Núñez Romero",
+      "Elena Kennedy González-Amor",
+      "Lucía Taboada Díez",
+      "Emilie de la Concepción Escobar",
+      "Irene Delgado Sastre"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "Esclavas C",
+    "centro": "Colegio Sagrado Corazón de Jesús- Esclavas Chamberí",
+    "alumnos": [
+      "Fernando Cabezuelo Velasco",
+      "Francisco Barrantes Tous de Monsalve",
+      "Mario Huerga Peláez",
+      "David Fernández Gonzalo",
+      "David López Cardozo"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "La Salle San Rafael A",
+    "centro": "Colegio La Salle San Rafael",
+    "alumnos": [
+      "Carmen del Puerto Armijos",
+      "Sofía Rincón del Pozo",
+      "Irene Andrea Sánchez Gallardo",
+      "Isabella Adriana Ruiz Jiménez"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "La Salle San Rafael B",
+    "centro": "Colegio La Salle San Rafael",
+    "alumnos": [
+      "Fátima Otiz Gómez",
+      "chloé Macedo dos Santos",
+      "Julia Arteaga Fernández",
+      "Adriana Agejas Gutiérrez"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "María Inmaculada A",
+    "centro": "Colegio María Inmaculada",
+    "alumnos": [
+      "Manuel Pérez Muñoz",
+      "Julio de Arquellada Casado",
+      "Laura Morales Hermida",
+      "Mariana de Pablo Rogero"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "María Inmaculada B",
+    "centro": "Colegio María Inmaculada",
+    "alumnos": [
+      "Jaafar Mellah Guaña",
+      "José Alberto Zambrano Cárdenas",
+      "Javier Sánchez Morales",
+      "Martín Bernal Martín de Francisco"
+    ],
+    "sala": ""
+  },
+  {
+    "colegio": "Maristas Chamberí",
+    "centro": "Maristas Chamberí",
+    "alumnos": [
+      "Victoria Berganza González",
+      "Carmen Martínez Rivera",
+      "Mercedes Martinez Cattaneo",
+      "Iris Iglesias Rodríguez",
+      "Alexandro Luka Scorosanu López",
+      "Victoria Palomeque Torres"
+    ],
+    "sala": ""
+  }
+]

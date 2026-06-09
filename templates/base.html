@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Concurso Debate Chamberí{% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="header-contenido">
+        <img src="/static/img/logo.png" alt="GOOSE Talent" class="logo logo-empresa">
+        <img src="/static/img/chamberi-blanco.png" alt="Chamberí" class="logo logo-torneo">
+        <h1>Debate Chamberí</h1>
+        <p class="subtitulo">Plataforma de gestión del torneo</p>
+        <span></span>
+                <span class="chip-fecha">10 y 11 de junio</span>
+                <span class="chip-lugar">Centro Cultural Galileo</span>
+        <span></span>
+    </div>
+</header>
+
+<nav class="tabs" role="navigation">
+    <a href="/" class="tab {% if request.url.path == '/' %}tab-activa{% endif %}">Inicio</a>
+    <a href="/acta" class="tab {% if request.url.path == '/acta' %}tab-activa{% endif %}">Acta Digital</a>
+    <a href="/clasificacion" class="tab {% if request.url.path == '/clasificacion' %}tab-activa{% endif %}">Clasificación</a>
+    <a href="/faltas" class="tab {% if request.url.path == '/faltas' %}tab-activa{% endif %}">Faltas</a>
+    <a href="/equipos" class="tab {% if request.url.path == '/equipos' %}tab-activa{% endif %}">Equipos</a>
+</nav>
+
+<div class="container mt-4">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+<footer>
+    <img src="/static/img/chamberi-blanco.png" alt="Logo del Torneo" class="footer-logo">
+</footer>
+
+</body>
+</html>
