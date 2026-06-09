@@ -662,3 +662,35 @@ footer {
     margin-bottom: 1.1rem;
     text-align: center;
 }
+@media (max-width: 768px) {
+
+    .header-contenido {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .logo-empresa,
+    .logo-torneo {
+        position: static;
+        transform: none;
+        margin: 10px auto;
+        display: block;
+    }
+
+    .logo-empresa {
+        width: 120px;
+    }
+
+    .logo-torneo {
+        width: 140px;
+    }
+
+    header h1 {
+        margin-top: 10px;
+        font-size: 2rem;
+    }
+
+    .subtitulo {
+        font-size: 0.9rem;
+    }
+}
