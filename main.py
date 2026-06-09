@@ -303,7 +303,7 @@ async def clasificacion_datos():
             clasificacion[equipo_af]["pp"] += 1
 
         else:
-            # Empate 1-1 → desempate por puntos
+            
 
             if puntos_af > puntos_ec:
 
@@ -385,7 +385,13 @@ async def debates_datos():
     return JSONResponse(debates)
 
 
-
+@app.get("/debates", response_class=HTMLResponse)
+async def debates(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="debates.html",
+        context={}
+    )
 
 @app.get("/faltas", response_class=HTMLResponse)
 async def faltas(request: Request):
