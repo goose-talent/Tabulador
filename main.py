@@ -302,6 +302,48 @@ async def clasificacion_datos():
     )
 
     return JSONResponse(resultado)
+@app.get("/clasificacion/oradores")
+async def clasificacion_oradores():
+
+    try:
+        with open(
+            os.path.join(BASE_DIR, "datos", "debates.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            debates = json.load(f)
+
+    except:
+        debates = []
+
+    ranking = {}
+
+    for debate in debates:
+
+        for orador in debate.get("oradores", []):
+
+            nombre = orador["nombre"]
+
+            if nombre not in ranking:
+
+                ranking[nombre] = {
+                    "nombre": nombre,
+                    "equipo": orador["equipo"],
+                    "puntos": 0
+                }
+
+            ranking[nombre]["puntos"] += float(
+                orador["nota"]
+            )
+
+    resultado = sorted(
+        ranking.values(),
+        key=lambda x: x["puntos"],
+        reverse=True
+    )
+
+    return JSONResponse(resultado)
 @app.get("/debates/datos")
 async def debates_datos():
 
