@@ -25,10 +25,26 @@ async def inicio(request: Request):
 
 @app.get("/acta", response_class=HTMLResponse)
 async def acta(request: Request):
+
+    try:
+        with open(
+            os.path.join(BASE_DIR, "datos", "equipos.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            equipos = json.load(f)
+
+    except:
+        equipos = []
+
     return templates.TemplateResponse(
         request=request,
         name="acta.html",
-        context={"mensaje": None}
+        context={
+            "mensaje": None,
+            "equipos": equipos
+        }
     )
 @app.post("/guardar_acta")
 async def guardar_acta(request: Request):
