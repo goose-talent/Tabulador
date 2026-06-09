@@ -24,6 +24,19 @@
     <p class="clas-subtitulo">Resultados registrados en el acta digital.</p>
     <div id="clas-detalles"></div>
 </div>
+<div class="clas-wrapper clas-detalles-wrapper">
+
+    <h2 class="clas-titulo">
+        📋 Historial de Debates
+    </h2>
+
+    <p class="clas-subtitulo">
+        Debates celebrados durante el torneo.
+    </p>
+
+    <div id="historial-debates"></div>
+
+</div>
 
 <script>
 let statsGlobal = [];
@@ -117,8 +130,58 @@ function descargarExcel() {
     a.download = 'clasificacion.csv';
     a.click();
 }
+async function cargarHistorial() {
 
+    const res = await fetch('/debates/datos');
+    const debates = await res.json();
+
+    const div =
+        document.getElementById(
+            'historial-debates'
+        );
+
+    if (!debates.length) {
+
+        div.innerHTML =
+            '<p class="clas-vacio">No hay debates registrados.</p>';
+
+        return;
+    }
+
+    div.innerHTML = `
+        <table class="clas-tabla">
+
+            <thead>
+
+                <tr>
+                    <th>Ronda</th>
+                    <th>Sala</th>
+                    <th>A Favor</th>
+                    <th>En Contra</th>
+                    <th>Ganador</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${debates.map(d => `
+                    <tr>
+                        <td>${d.ronda || ''}</td>
+                        <td>${d.sala || ''}</td>
+                        <td>${d.equipo_af || ''}</td>
+                        <td>${d.equipo_ec || ''}</td>
+                        <td><strong>${d.ganador || ''}</strong></td>
+                    </tr>
+                `).join('')}
+
+            </tbody>
+
+        </table>
+    `;
+}
 cargarClasificacion();
+cargarHistorial();
 </script>
 
 {% endblock %}

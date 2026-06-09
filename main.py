@@ -270,6 +270,54 @@ async def clasificacion_datos():
     )
 
     return JSONResponse(resultado)
+@app.get("/debates/datos")
+async def debates_datos():
+
+    try:
+        with open(
+            os.path.join(BASE_DIR, "datos", "debates.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            debates = json.load(f)
+
+    except:
+        debates = []
+
+    return JSONResponse(debates)
+@app.get("/debates/datos")
+async def debates_datos():
+
+    try:
+        with open(
+            os.path.join(BASE_DIR, "datos", "debates.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            debates = json.load(f)
+
+    except:
+        debates = []
+
+    return JSONResponse(debates)
+@app.get("/debates/datos")
+async def debates_datos():
+
+    try:
+        with open(
+            os.path.join(BASE_DIR, "datos", "debates.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            debates = json.load(f)
+
+    except:
+        debates = []
+
+    return JSONResponse(debates)
 
 
 @app.get("/faltas", response_class=HTMLResponse)
@@ -319,6 +367,7 @@ async def datos_equipo(nombre: str):
             return equipo
 
     return {}
+
 @app.get("/borrar_actas")
 async def borrar_actas():
 
