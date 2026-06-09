@@ -220,6 +220,7 @@ async def clasificacion_datos():
         clasificacion[equipo_ec]["faltas"] += faltas_ec
 
         
+        
         if votos_af > votos_ec:
 
             clasificacion[equipo_af]["pg"] += 1
@@ -229,6 +230,19 @@ async def clasificacion_datos():
 
             clasificacion[equipo_ec]["pg"] += 1
             clasificacion[equipo_af]["pp"] += 1
+
+        else:
+            # Empate 1-1 → desempate por puntos
+
+            if puntos_af > puntos_ec:
+
+                clasificacion[equipo_af]["pg"] += 1
+                clasificacion[equipo_ec]["pp"] += 1
+
+            elif puntos_ec > puntos_af:
+
+                clasificacion[equipo_ec]["pg"] += 1
+                clasificacion[equipo_af]["pp"] += 1
 
     resultado = sorted(
         clasificacion.values(),
