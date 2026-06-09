@@ -286,3 +286,14 @@ async def equipos_datos():
         equipos = []
 
     return JSONResponse(equipos)
+@app.get("/borrar_actas")
+async def borrar_actas():
+
+    with open(
+        os.path.join(BASE_DIR, "datos", "debates.json"),
+        "w",
+        encoding="utf-8"
+    ) as f:
+        json.dump([], f)
+
+    return {"ok": True}
