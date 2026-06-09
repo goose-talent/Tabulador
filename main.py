@@ -134,13 +134,112 @@ async def clasificacion_datos():
             "r",
             encoding="utf-8"
         ) as f:
-
             debates = json.load(f)
 
     except:
         debates = []
 
-    return JSONResponse(debates)
+    clasificacion = {}
+
+    
+    grupos = {}
+
+    for acta in debates:
+
+        clave = (
+            acta.get("ronda"),
+            acta.get("sala")
+        )
+
+        if clave not in grupos:
+            grupos[clave] = []
+
+        grupos[clave].append(acta)
+
+    
+    for grupo in grupos.values():
+
+        if not grupo:
+            continue
+
+        primera = grupo[0]
+
+        equipo_af = primera["equipo_af"]
+        equipo_ec = primera["equipo_ec"]
+
+        for equipo in [equipo_af, equipo_ec]:
+
+            if equipo not in clasificacion:
+
+                clasificacion[equipo] = {
+                    "colegio": equipo,
+                    "pj": 0,
+                    "pg": 0,
+                    "pp": 0,
+                    "pts": 0,
+                    "faltas": 0
+                }
+
+        votos_af = 0
+        votos_ec = 0
+
+        puntos_af = 0
+        puntos_ec = 0
+
+        for acta in grupo:
+
+            puntos_af += float(acta.get("final_af", 0))
+            puntos_ec += float(acta.get("final_ec", 0))
+
+            ganador = acta.get("ganador")
+
+            if ganador == equipo_af:
+                votos_af += 1
+
+            elif ganador == equipo_ec:
+                votos_ec += 1
+
+        clasificacion[equipo_af]["pj"] += 1
+        clasificacion[equipo_ec]["pj"] += 1
+
+        clasificacion[equipo_af]["pts"] += puntos_af
+        clasificacion[equipo_ec]["pts"] += puntos_ec
+
+        
+        faltas_af = (
+            int(primera.get("leves_af", 0))
+            + int(primera.get("graves_af", 0))
+        )
+
+        faltas_ec = (
+            int(primera.get("leves_ec", 0))
+            + int(primera.get("graves_ec", 0))
+        )
+
+        clasificacion[equipo_af]["faltas"] += faltas_af
+        clasificacion[equipo_ec]["faltas"] += faltas_ec
+
+        
+        if votos_af > votos_ec:
+
+            clasificacion[equipo_af]["pg"] += 1
+            clasificacion[equipo_ec]["pp"] += 1
+
+        elif votos_ec > votos_af:
+
+            clasificacion[equipo_ec]["pg"] += 1
+            clasificacion[equipo_af]["pp"] += 1
+
+    resultado = sorted(
+        clasificacion.values(),
+        key=lambda x: (
+            -x["pg"],
+            -x["pts"],
+            x["faltas"]
+        )
+    )
+
+    return JSONResponse(resultado)
 
 
 @app.get("/faltas", response_class=HTMLResponse)
