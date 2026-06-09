@@ -44,6 +44,7 @@
 
 <script>
 let statsGlobal = [];
+let statsFiltrados = [];
 
 async function cargarClasificacion() {
     const [resStats, resEquipos] = await Promise.all([
@@ -63,6 +64,7 @@ async function cargarClasificacion() {
     });
 
     renderClasificacion(statsGlobal);
+    statsFiltrados = statsGlobal;
     
 }
 
@@ -95,15 +97,20 @@ function renderClasificacion(stats) {
 }
 
 
-
 document.getElementById('filtro-colegio').addEventListener('change', e => {
     const val = e.target.value;
-    renderClasificacion(val ? statsGlobal.filter(eq => eq.colegio.includes(val) || (eq.centro || '').includes(val)) : statsGlobal);
+
+    statsFiltrados =
+        val
+            ? statsGlobal.filter(eq => eq.colegio === val)
+            : statsGlobal;
+
+    renderClasificacion(statsFiltrados);
 });
 
 function descargarExcel() {
     const filas = [['Posición', 'Equipo', 'PJ', 'PG', 'PP', 'Puntos']];
-    statsGlobal.forEach((e, i) => {
+    statsFiltrados.forEach((e, i) => {
         filas.push([i + 1, e.colegio, e.pj, e.pg, e.pp, e.pts.toFixed(1)]);
     });
     const csv = filas.map(f => f.map(v => `"${v}"`).join(',')).join('\n');
