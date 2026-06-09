@@ -189,7 +189,30 @@ async def clasificacion_datos():
 
     clasificacion = {}
 
-    
+    try:
+        with open(
+            os.path.join(BASE_DIR, "datos", "equipos.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            equipos = json.load(f)
+
+    except:
+        equipos = []
+
+    for equipo in equipos:
+
+        nombre = equipo["colegio"]
+
+        clasificacion[nombre] = {
+            "colegio": nombre,
+            "pj": 0,
+            "pg": 0,
+            "pp": 0,
+            "pts": 0,
+            "faltas": 0
+        }
     grupos = {}
 
     for acta in debates:
