@@ -52,17 +52,17 @@ async def guardar_acta(request: Request):
     form = await request.form()
 
     datos = dict(form)
-    puntos_af = float(datos.get("puntos_af", 0))
-    puntos_ec = float(datos.get("puntos_ec", 0))
+    puntos_af = float(datos.get("puntos_af") or 0)
+    puntos_ec = float(datos.get("puntos_ec") or 0)
 
-    avisos_af = int(datos.get("avisos_af", 0))
-    avisos_ec = int(datos.get("avisos_ec", 0))
+    avisos_af = int(datos.get("avisos_af") or 0)
+    avisos_ec = int(datos.get("avisos_ec") or 0)
 
-    leves_af = int(datos.get("leves_af", 0))
-    leves_ec = int(datos.get("leves_ec", 0))
+    leves_af = int(datos.get("leves_af") or 0)
+    leves_ec = int(datos.get("leves_ec") or 0)
 
-    graves_af = int(datos.get("graves_af", 0))
-    graves_ec = int(datos.get("graves_ec", 0))
+    graves_af = int(datos.get("graves_af") or 0)
+    graves_ec = int(datos.get("graves_ec") or 0)
 
     penalizacion_af = leves_af + (avisos_af // 2)
     penalizacion_ec = leves_ec + (avisos_ec // 2)
