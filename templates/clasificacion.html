@@ -3,9 +3,26 @@
 {% block title %}Clasificación{% endblock %}
 
 {% block content %}
-
 <div class="clas-wrapper">
-    <h2 class="clas-titulo">Clasificación de equipos</h2>
+
+    <h2 class="clas-titulo">
+        Ver clasificación
+    </h2>
+
+    <select id="selector-clasificacion" class="clas-select">
+        <option value="equipos">🏆 Equipos</option>
+        <option value="detalles">📊 Detalles</option>
+        <option value="historial">📋 Historial</option>
+        <option value="oradores">🎤 Oradores</option>
+    </select>
+
+</div>
+
+<div class="clas-wrapper " id="bloque-equipos">
+    <h2 class="clas-titulo">
+        🏆 Clasificación de Equipos
+    </h2>
+    
     <p class="clas-subtitulo">Suma de las puntuaciones de los alumnos en cada fase.</p>
 
     <div class="clas-controles">
@@ -19,12 +36,23 @@
     <div id="clas-lista"></div>
 </div>
 
-<div class="clas-wrapper clas-detalles-wrapper">
-    <h2 class="clas-titulo">Detalles de clasificación</h2>
-    <p class="clas-subtitulo">Resultados registrados en el acta digital.</p>
+<div class="clas-wrapper clas-detalles-wrapper"
+     id="bloque-detalles">
+
+    <h2 class="clas-titulo">
+        📊 Detalles de clasificación
+    </h2>
+
+    <p class="clas-subtitulo">
+        Resultados registrados en el acta digital.
+    </p>
+
     <div id="clas-detalles"></div>
+
 </div>
-<div class="clas-wrapper clas-detalles-wrapper">
+
+<div class="clas-wrapper clas-detalles-wrapper"
+     id="bloque-historial">
 
     <h2 class="clas-titulo">
         📋 Historial de Debates
@@ -37,7 +65,9 @@
     <div id="historial-debates"></div>
 
 </div>
-<div class="clas-wrapper">
+
+<div class="clas-wrapper"
+     id="bloque-oradores">
 
     <h2 class="clas-titulo">
         🎤 Clasificación de Oradores
@@ -233,9 +263,48 @@ async function cargarOradores() {
         </table>
     `;
 }
+document.getElementById(
+    'bloque-detalles'
+).style.display = 'none';
+
+document.getElementById(
+    'bloque-historial'
+).style.display = 'none';
+
+document.getElementById(
+    'bloque-oradores'
+).style.display = 'none';
+document
+.getElementById('selector-clasificacion')
+.addEventListener('change', function() {
+
+    document.getElementById(
+        'bloque-equipos'
+    ).style.display = 'none';
+
+    document.getElementById(
+        'bloque-detalles'
+    ).style.display = 'none';
+
+    document.getElementById(
+        'bloque-historial'
+    ).style.display = 'none';
+
+    document.getElementById(
+        'bloque-oradores'
+    ).style.display = 'none';
+    document.getElementById(
+        'bloque-equipos'
+    ).style.display = 'block';
+
+    document.getElementById(
+        'bloque-' + this.value
+    ).style.display = 'block';
+
+});
 cargarClasificacion();
 cargarHistorial();
-cargaroradores();
+cargarOradores();
 </script>
 
 {% endblock %}
