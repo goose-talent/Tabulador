@@ -83,7 +83,11 @@ function renderClasificacion(stats) {
             <div class="clas-pos" style="${esNeon ? `background:${neon};color:${NEON_TEXT[i]}` : 'background:#3a5570;color:#aac'}">${i + 1}º</div>
             <div class="clas-info">
                 <div class="clas-nombre">${e.colegio}</div>
-                <div class="clas-sub">${e.pj} debates jugados · ${e.pg} victorias</div>
+                <div class="clas-sub">
+                    Debates: ${e.pj} ·
+                    Ganados: ${e.pg} ·
+                    Perdidos: ${e.pp}
+                </div>
             </div>
             <div class="clas-pts" style="${esNeon ? `background:${neon};color:${NEON_TEXT[i]}` : 'background:#3a5570;color:#ccd'}">${e.pts.toFixed(1)} pts</div>
         </div>`;
