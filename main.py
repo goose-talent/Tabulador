@@ -286,6 +286,23 @@ async def equipos_datos():
         equipos = []
 
     return JSONResponse(equipos)
+@app.get("/equipo/{nombre}")
+async def datos_equipo(nombre: str):
+
+    with open(
+        os.path.join(BASE_DIR, "datos", "equipos.json"),
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        equipos = json.load(f)
+
+    for equipo in equipos:
+
+        if equipo["colegio"] == nombre:
+            return equipo
+
+    return {}
 @app.get("/borrar_actas")
 async def borrar_actas():
 

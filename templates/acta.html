@@ -100,12 +100,9 @@ Acta Digital
                 id="equipo_af"
                 name="equipo_af"
                 class="form-select">
-                <option>Seleccionar</option>
-                <option>Colegio A</option>
-                <option>Colegio B</option>
-                <option>Colegio C</option>
-                <option>Colegio D</option>
+                
             </select>
+            <div id="oradores_af" class="mt-3"></div>
 
             <label class="form-label mt-3">
                 Puntuación
@@ -206,12 +203,9 @@ Acta Digital
                 id="equipo_ec"
                 name="equipo_ec"
                 class="form-select">
-                <option>Seleccionar</option>
-                <option>Colegio A</option>
-                <option>Colegio B</option>
-                <option>Colegio C</option>
-                <option>Colegio D</option>
+                
             </select>
+            <div id="oradores_ec" class="mt-3"></div>
 
             <label class="form-label mt-3">
                 Puntuación
@@ -453,7 +447,82 @@ document
     }
 
 });
+document
+.getElementById("equipo_af")
+.addEventListener(
+    "change",
+    () =>
+        cargarOradores(
+            "equipo_af",
+            "oradores_af",
+            "af"
+        )
+);
 
+document
+.getElementById("equipo_ec")
+.addEventListener(
+    "change",
+    () =>
+        cargarOradores(
+            "equipo_ec",
+            "oradores_ec",
+            "ec"
+        )
+);
+async function cargarOradores(
+    equipoSelect,
+    contenedorId,
+    prefijo
+){
+
+    let colegio =
+        document.getElementById(equipoSelect).value;
+
+    if(
+        colegio === "Seleccionar"
+    ){
+        return;
+    }
+
+    let respuesta =
+        await fetch(
+            "/equipo/" +
+            encodeURIComponent(colegio)
+        );
+
+    let equipo =
+        await respuesta.json();
+
+    let html = "<h5>Oradores</h5>";
+
+    equipo.alumnos.forEach(
+        (alumno, i) => {
+
+            html += `
+                <div class="mb-2">
+
+                    <label>
+                        ${alumno}
+                    </label>
+
+                    <input
+                        type="number"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        name="${prefijo}_${i}"
+                        class="form-control">
+
+                </div>
+            `;
+        }
+    );
+
+    document.getElementById(
+        contenedorId
+    ).innerHTML = html;
+}
 </script>
 
 {% endblock %}
