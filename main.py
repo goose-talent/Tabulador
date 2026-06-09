@@ -85,7 +85,7 @@ async def guardar_acta(request: Request):
 
     try:
         with open(
-            "datos/debates.json",
+            os.path.join(BASE_DIR, "datos", "debates.json"),
             "r",
             encoding="utf-8"
         ) as f:
@@ -98,7 +98,7 @@ async def guardar_acta(request: Request):
     debates.append(nueva_acta)
 
     with open(
-        "datos/debates.json",
+        os.path.join(BASE_DIR, "datos", "debates.json"),
         "w",
         encoding="utf-8"
     ) as f:
@@ -130,7 +130,7 @@ async def clasificacion_datos():
 
     try:
         with open(
-            "datos/debates.json",
+            os.path.join(BASE_DIR, "datos", "debates.json"),
             "r",
             encoding="utf-8"
         ) as f:
@@ -162,7 +162,7 @@ async def equipos_datos():
 
     try:
         with open(
-            "datos/equipos.json",
+            os.path.join(BASE_DIR, "datos", "equipos.json"),
             "r",
             encoding="utf-8"
         ) as f:
