@@ -6,6 +6,43 @@
 
 <h2>🏛 Debates del Torneo</h2>
 
-<p>Próximamente aparecerán aquí los enfrentamientos y resultados.</p>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Ronda</th>
+            <th>Sala</th>
+            <th>A Favor</th>
+            <th>En Contra</th>
+            <th>Voto Juez 1</th>
+            <th>Voto Juez 2</th>
+            <th>Avisos</th>
+            <th>Faltas</th>
+            <th>Ganador Final</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for debate in debates %}
+
+        <tr>
+            <td>{{ debate.ronda }}</td>
+            <td>{{ debate.sala }}</td>
+            <td>{{ debate.favor }}</td>
+            <td>{{ debate.contra }}</td>
+            <td>{{ debate.voto1 }}</td>
+            <td>{{ debate.voto2 }}</td>
+            <td>{{ debate.avisos }}</td>
+            <td>{{ debate.faltas }}</td>
+            <td>
+                <strong>{{ debate.ganador }}</strong>
+            </td>
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
 
 {% endblock %}

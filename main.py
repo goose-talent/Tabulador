@@ -387,10 +387,100 @@ async def debates_datos():
 
 @app.get("/debates", response_class=HTMLResponse)
 async def debates(request: Request):
+
+    try:
+        with open(
+            os.path.join(BASE_DIR, "datos", "debates.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            actas = json.load(f)
+
+    except:
+        actas = []
+
+    agrupados = {}
+
+    for acta in actas:
+
+        clave = (
+            acta.get("ronda"),
+            acta.get("sala")
+        )
+
+        if clave not in agrupados:
+
+            agrupados[clave] = {
+                "ronda": acta.get("ronda"),
+                "sala": acta.get("sala"),
+                "favor": acta.get("equipo_af"),
+                "contra": acta.get("equipo_ec"),
+                "jueces": [],
+                "avisos": 0,
+                "faltas": 0
+            }
+
+        agrupados[clave]["jueces"].append({
+            "juez": acta.get("juez"),
+            "ganador": acta.get("ganador")
+        })
+
+        agrupados[clave]["avisos"] += (
+            int(acta.get("avisos_af", 0))
+            + int(acta.get("avisos_ec", 0))
+        )
+
+        agrupados[clave]["faltas"] += (
+            int(acta.get("leves_af", 0))
+            + int(acta.get("leves_ec", 0))
+            + int(acta.get("graves_af", 0))
+            + int(acta.get("graves_ec", 0))
+        )
+
+    lista_debates = []
+
+    for debate in agrupados.values():
+
+        voto1 = "-"
+        voto2 = "-"
+
+        for voto in debate["jueces"]:
+
+            if voto["juez"] == "Juez 1":
+                voto1 = voto["ganador"]
+
+            elif voto["juez"] == "Juez 2":
+                voto2 = voto["ganador"]
+
+        votos = [voto1, voto2]
+
+        ganador_final = "-"
+
+        if votos.count(debate["favor"]) > votos.count(debate["contra"]):
+            ganador_final = debate["favor"]
+
+        elif votos.count(debate["contra"]) > votos.count(debate["favor"]):
+            ganador_final = debate["contra"]
+
+        lista_debates.append({
+            "ronda": debate["ronda"],
+            "sala": debate["sala"],
+            "favor": debate["favor"],
+            "contra": debate["contra"],
+            "voto1": voto1,
+            "voto2": voto2,
+            "avisos": debate["avisos"],
+            "faltas": debate["faltas"],
+            "ganador": ganador_final
+        })
+
     return templates.TemplateResponse(
         request=request,
         name="debates.html",
-        context={}
+        context={
+            "debates": lista_debates
+        }
     )
 
 @app.get("/faltas", response_class=HTMLResponse)
