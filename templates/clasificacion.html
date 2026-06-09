@@ -53,7 +53,7 @@ async function cargarClasificacion() {
     statsGlobal = await resStats.json();
     const equipos = await resEquipos.json();
 
-    const centros = [...new Set(equipos.map(e => e.centro).filter(Boolean))].sort();
+    const centros = [...new Set(equipos.map(e => e.colegio).filter(Boolean))].sort();
     const sel = document.getElementById('filtro-colegio');
     centros.forEach(c => {
         const opt = document.createElement('option');
