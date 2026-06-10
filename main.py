@@ -407,6 +407,7 @@ async def debates(request: Request):
                 "favor": acta.get("equipo_af"),
                 "contra": acta.get("equipo_ec"),
                 "jueces": [],
+                "actas_ids": [],
                 "avisos_af": int(acta.get("avisos_af", 0)),
                 "avisos_ec": int(acta.get("avisos_ec", 0)),
                 "leves_af": int(acta.get("leves_af", 0)),
@@ -416,6 +417,10 @@ async def debates(request: Request):
             }
 
         agrupados[clave]["jueces"].append(acta.get("juez"))
+        agrupados[clave]["actas_ids"].append({
+            "id": acta.get("id"),
+            "juez": acta.get("juez")
+        })
 
     lista_debates = []
 
@@ -457,6 +462,7 @@ async def debates(request: Request):
             "favor": debate["favor"],
             "contra": debate["contra"],
             "jueces": jueces,
+            "actas_ids": debate["actas_ids"],
             "puntos_af": puntos_af,
             "puntos_ec": puntos_ec,
             "avisos_af": debate["avisos_af"],
@@ -688,6 +694,4 @@ async def borrar_actas():
         json.dump([], f)
 
     return {"ok": True}
-    
-    
     
