@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 import os
 import json
 from fastapi.responses import JSONResponse
+import uuid
 app = FastAPI()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 print("BASE_DIR =", BASE_DIR)
@@ -116,6 +117,7 @@ async def guardar_acta(request: Request):
             "nota": float(nota)
         })
     nueva_acta = {
+        "id": str(uuid.uuid4()),
 
         **datos,
 
@@ -412,6 +414,7 @@ async def debates(request: Request):
         if clave not in agrupados:
 
             agrupados[clave] = {
+                "id": acta.get("id"),
                 "ronda": acta.get("ronda"),
                 "sala": acta.get("sala"),
                 "favor": acta.get("equipo_af"),
@@ -464,6 +467,7 @@ async def debates(request: Request):
             ganador_final = debate["contra"]
 
         lista_debates.append({
+            "id": debate["id"],
             "ronda": debate["ronda"],
             "sala": debate["sala"],
             "favor": debate["favor"],
@@ -482,7 +486,184 @@ async def debates(request: Request):
             "debates": lista_debates
         }
     )
+@app.get("/debate/editar/{id}", response_class=HTMLResponse)
+async def editar_debate(request: Request, id: str):
 
+    try:
+        with open(
+            os.path.join(BASE_DIR, "datos", "debates.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            debates = json.load(f)
+
+    except:
+        debates = []
+
+    acta = None
+
+    for debate in debates:
+
+        if debate.get("id") == id:
+            acta = debate
+            break
+
+    if not acta:
+        return HTMLResponse(
+            "Acta no encontrada",
+            status_code=404
+        )
+
+    try:
+        with open(
+            os.path.join(BASE_DIR, "datos", "equipos.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            equipos = json.load(f)
+
+    except:
+        equipos = []
+
+    return templates.TemplateResponse(
+        request=request,
+        name="acta.html",
+        context={
+            "mensaje": None,
+            "equipos": equipos,
+            "acta": acta,
+            "modo_edicion": True
+        }
+    )
+@app.post("/debate/actualizar/{id}")
+async def actualizar_debate(
+    request: Request,
+    id: str
+):
+
+    form = await request.form()
+
+    datos = dict(form)
+
+    puntos_af = float(datos.get("puntos_af") or 0)
+    puntos_ec = float(datos.get("puntos_ec") or 0)
+
+    avisos_af = int(datos.get("avisos_af") or 0)
+    avisos_ec = int(datos.get("avisos_ec") or 0)
+
+    leves_af = int(datos.get("leves_af") or 0)
+    leves_ec = int(datos.get("leves_ec") or 0)
+
+    graves_af = int(datos.get("graves_af") or 0)
+    graves_ec = int(datos.get("graves_ec") or 0)
+
+    penalizacion_af = leves_af + (avisos_af // 2)
+    penalizacion_ec = leves_ec + (avisos_ec // 2)
+
+    final_af = puntos_af - penalizacion_af
+    final_ec = puntos_ec - penalizacion_ec
+
+    if graves_af > 0:
+        ganador = datos["equipo_ec"]
+
+    elif graves_ec > 0:
+        ganador = datos["equipo_af"]
+
+    elif final_af > final_ec:
+        ganador = datos["equipo_af"]
+
+    elif final_ec > final_af:
+        ganador = datos["equipo_ec"]
+
+    else:
+        ganador = "Empate"
+
+    oradores = []
+
+    for clave in datos:
+
+        if "_nota_" not in clave:
+            continue
+
+        nota = datos.get(clave)
+
+        if nota == "":
+            continue
+
+        prefijo = clave.split("_nota_")[0]
+        indice = clave.split("_nota_")[1]
+
+        nombre = datos.get(
+            f"{prefijo}_nombre_{indice}"
+        )
+
+        equipo = (
+            datos["equipo_af"]
+            if prefijo == "af"
+            else datos["equipo_ec"]
+        )
+
+        oradores.append({
+            "nombre": nombre,
+            "equipo": equipo,
+            "nota": float(nota)
+        })
+
+    try:
+
+        with open(
+            os.path.join(BASE_DIR, "datos", "debates.json"),
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            debates = json.load(f)
+
+    except:
+
+        debates = []
+
+    for i, debate in enumerate(debates):
+
+        if debate.get("id") == id:
+
+            debates[i] = {
+                "id": id,
+                **datos,
+                "oradores": oradores,
+                "penalizacion_af": penalizacion_af,
+                "penalizacion_ec": penalizacion_ec,
+                "final_af": final_af,
+                "final_ec": final_ec,
+                "ganador": ganador
+            }
+
+            break
+
+    with open(
+        os.path.join(BASE_DIR, "datos", "debates.json"),
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            debates,
+            f,
+            ensure_ascii=False,
+            indent=4
+        )
+
+    return templates.TemplateResponse(
+        request=request,
+        name="acta.html",
+        context={
+            "mensaje": "✅ Acta actualizada correctamente",
+            "equipos": [],
+            "modo_edicion": False
+        }
+    )
 @app.get("/faltas", response_class=HTMLResponse)
 async def faltas(request: Request):
     return templates.TemplateResponse(

@@ -29,6 +29,7 @@
                 <th>Avisos</th>
                 <th>Faltas</th>
                 <th>Ganador</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -46,6 +47,11 @@
                 <td>{{ debate.avisos }}</td>
                 <td>{{ debate.faltas }}</td>
                 <td><strong>{{ debate.ganador }}</strong></td>
+                <td>
+                    <a href="/debate/editar/{{ debate.id }}">
+                        ✏️ Editar
+                    </a>
+                </td>
             </tr>
 
             {% endfor %}
