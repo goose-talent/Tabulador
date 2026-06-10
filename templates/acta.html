@@ -96,9 +96,30 @@ Acta Digital
         class="form-select">
 
         <option>Seleccionar</option>
-        <option {% if acta and acta.juez == "Juez 1" %}selected{% endif %}>Juez 1</option>
-        <option {% if acta and acta.juez == "Juez 2" %}selected{% endif %}>Juez 2</option>
-        
+
+        <option {% if acta and acta.juez == "Jorge Whyte" %}selected{% endif %}>
+            Jorge Whyte
+        </option>
+
+        <option {% if acta and acta.juez == "Fernando Barroso" %}selected{% endif %}>
+            Fernando Barroso
+        </option>
+
+        <option {% if acta and acta.juez == "Enrique Moreno" %}selected{% endif %}>
+            Enrique Moreno
+        </option>
+
+        <option {% if acta and acta.juez == "Álvaro Mora" %}selected{% endif %}>
+            Álvaro Mora
+        </option>
+
+        <option {% if acta and acta.juez == "Alejandra Pío" %}selected{% endif %}>
+            Alejandra Pío
+        </option>
+
+        <option {% if acta and acta.juez == "Alonso Cerdán" %}selected{% endif %}>
+            Alonso Cerdán
+        </option>
 
     </select>
 
