@@ -1,23 +1,22 @@
 {% extends "base.html" %}
-
 {% block title %}Debates{% endblock %}
-
 {% block content %}
-
 <div class="clas-wrapper">
-
     <h2 class="clas-titulo">
         🏛 Debates del Torneo
     </h2>
-
     <p class="clas-subtitulo">
         Resultados agrupados por ronda y sala.
     </p>
 
+    <div class="mb-4">
+        <a href="/exportar_datos" class="btn btn-success">
+            💾 Exportar datos (copia de seguridad)
+        </a>
+    </div>
+
     {% if debates %}
-
     <table class="clas-tabla">
-
         <thead>
             <tr>
                 <th>Ronda</th>
@@ -31,24 +30,17 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-
         <tbody>
-
             {% for debate in debates %}
-
             <tr>
                 <td>{{ debate.ronda }}</td>
                 <td>{{ debate.sala }}</td>
                 <td>{{ debate.favor }}</td>
                 <td>{{ debate.contra }}</td>
                 <td>
-
-                {% for juez in debate.jueces %}
-
-                <div>{{ juez }}</div>
-
-                {% endfor %}
-
+                    {% for juez in debate.jueces %}
+                    <div>{{ juez }}</div>
+                    {% endfor %}
                 </td>
                 <td>{{ debate.avisos }}</td>
                 <td>{{ debate.faltas }}</td>
@@ -57,23 +49,32 @@
                     <a href="/debate/editar/{{ debate.id }}">
                         ✏️ Editar
                     </a>
+                    &nbsp;
+                    <button
+                        onclick="borrarDebate('{{ debate.id }}')"
+                        style="background:none; border:none; cursor:pointer; color:red;">
+                        🗑️ Borrar
+                    </button>
                 </td>
             </tr>
-
             {% endfor %}
-
         </tbody>
-
     </table>
-
     {% else %}
-
     <p class="clas-vacio">
         No hay debates registrados.
     </p>
-
     {% endif %}
-
 </div>
+
+<script>
+async function borrarDebate(id) {
+    if (!confirm('¿Seguro que quieres borrar esta acta? Esta acción no se puede deshacer.')) {
+        return;
+    }
+    await fetch('/debate/borrar/' + id, { method: 'DELETE' });
+    window.location.reload();
+}
+</script>
 
 {% endblock %}
