@@ -620,6 +620,37 @@ async function cargarOradores(
     }
 );
 
+    html += `
+        <div class="row mb-2 mt-3 pt-3" style="border-top: 1px dashed #ccc;">
+
+            <div class="col-8">
+
+                <input
+                    type="text"
+                    name="${prefijo}_nombre_otro"
+                    class="form-control"
+                    placeholder="Otro orador (escribe el nombre)"
+                >
+
+            </div>
+
+            <div class="col-4">
+
+                <input
+                    type="number"
+                    min="0"
+                    max="10"
+                    step="0.1"
+                    name="${prefijo}_nota_otro"
+                    class="form-control"
+                    placeholder="Nota"
+                >
+
+            </div>
+
+        </div>
+    `;
+
     document.getElementById(
         contenedorId
     ).innerHTML = html;
