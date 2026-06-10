@@ -9,10 +9,20 @@
         Resultados agrupados por ronda y sala.
     </p>
 
-    <div class="mb-4">
+    <div class="mb-4" style="display: flex; gap: 1rem; align-items: center;">
         <a href="/exportar_datos" class="btn btn-success">
             💾 Exportar datos (copia de seguridad)
         </a>
+        <button class="btn btn-warning" onclick="document.getElementById('importar-input').click()">
+            📂 Importar datos
+        </button>
+        <input
+            type="file"
+            id="importar-input"
+            accept=".json"
+            style="display:none"
+            onchange="importarDatos(this)"
+        >
     </div>
 
     {% if debates %}
@@ -74,6 +84,38 @@ async function borrarDebate(id) {
     }
     await fetch('/debate/borrar/' + id, { method: 'DELETE' });
     window.location.reload();
+}
+
+async function importarDatos(input) {
+    const archivo = input.files[0];
+    if (!archivo) return;
+
+    const texto = await archivo.text();
+
+    let datos;
+    try {
+        datos = JSON.parse(texto);
+    } catch(e) {
+        alert('El archivo no es válido.');
+        return;
+    }
+
+    if (!confirm('¿Seguro que quieres importar estos datos? Se sobreescribirá todo lo que hay ahora.')) {
+        return;
+    }
+
+    const respuesta = await fetch('/importar_datos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+    });
+
+    if (respuesta.ok) {
+        alert('✅ Datos importados correctamente.');
+        window.location.reload();
+    } else {
+        alert('❌ Error al importar los datos.');
+    }
 }
 </script>
 
