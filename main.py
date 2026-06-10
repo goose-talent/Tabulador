@@ -407,16 +407,12 @@ async def debates(request: Request):
                 "favor": acta.get("equipo_af"),
                 "contra": acta.get("equipo_ec"),
                 "jueces": [],
-                "avisos": (
-                    int(acta.get("avisos_af", 0))
-                    + int(acta.get("avisos_ec", 0))
-                ),
-                "faltas": (
-                    int(acta.get("leves_af", 0))
-                    + int(acta.get("leves_ec", 0))
-                    + int(acta.get("graves_af", 0))
-                    + int(acta.get("graves_ec", 0))
-                )
+                "avisos_af": int(acta.get("avisos_af", 0)),
+                "avisos_ec": int(acta.get("avisos_ec", 0)),
+                "leves_af": int(acta.get("leves_af", 0)),
+                "leves_ec": int(acta.get("leves_ec", 0)),
+                "graves_af": int(acta.get("graves_af", 0)),
+                "graves_ec": int(acta.get("graves_ec", 0)),
             }
 
         agrupados[clave]["jueces"].append(acta.get("juez"))
@@ -430,6 +426,8 @@ async def debates(request: Request):
         equipo_ec = debate["contra"]
         votos_af = 0
         votos_ec = 0
+        puntos_af = 0
+        puntos_ec = 0
 
         clave = (debate["ronda"], debate["sala"])
 
@@ -438,6 +436,8 @@ async def debates(request: Request):
                 acta.get("ronda") == clave[0]
                 and acta.get("sala") == clave[1]
             ):
+                puntos_af += float(acta.get("final_af", 0))
+                puntos_ec += float(acta.get("final_ec", 0))
                 if acta.get("ganador") == equipo_af:
                     votos_af += 1
                 elif acta.get("ganador") == equipo_ec:
@@ -457,8 +457,14 @@ async def debates(request: Request):
             "favor": debate["favor"],
             "contra": debate["contra"],
             "jueces": jueces,
-            "avisos": debate["avisos"],
-            "faltas": debate["faltas"],
+            "puntos_af": puntos_af,
+            "puntos_ec": puntos_ec,
+            "avisos_af": debate["avisos_af"],
+            "avisos_ec": debate["avisos_ec"],
+            "leves_af": debate["leves_af"],
+            "leves_ec": debate["leves_ec"],
+            "graves_af": debate["graves_af"],
+            "graves_ec": debate["graves_ec"],
             "ganador": ganador_final
         })
 
@@ -682,5 +688,6 @@ async def borrar_actas():
         json.dump([], f)
 
     return {"ok": True}
+    
     
     
