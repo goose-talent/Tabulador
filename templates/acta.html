@@ -179,7 +179,7 @@ Acta Digital
                 type="number"
                 min="1"
                 max="10"
-                step="0.1"
+                step="any"
                 class="form-control">
 
             <label class="form-label mt-3">
@@ -275,7 +275,7 @@ Acta Digital
                 type="number"
                 min="1"
                 max="10"
-                step="0.1"
+                step="any"
                 class="form-control">
 
             <label class="form-label mt-3">
@@ -566,68 +566,51 @@ async function cargarOradores(equipoSelect, contenedorId, prefijo){
 
         html += `
             <div class="row mb-2">
-
                 <div class="col-8">
-
-                    <label>
-                        ${alumno}
-                    </label>
-
+                    <label>${alumno}</label>
                     <input
                         type="hidden"
                         name="${prefijo}_nombre_${i}"
                         value="${alumno}"
                     >
-
                 </div>
-
                 <div class="col-4">
-
                     <input
                         type="number"
                         min="0"
                         max="10"
-                        step="0.1"
+                        step="any"
                         name="${prefijo}_nota_${i}"
                         class="form-control"
                         placeholder="Nota"
                         value="${obtenerNota(alumno)}"
                     >
-
                 </div>
-
             </div>
         `;
     });
 
     html += `
         <div class="row mb-2 mt-3 pt-3" style="border-top: 1px dashed #ccc;">
-
             <div class="col-8">
-
                 <input
                     type="text"
                     name="${prefijo}_nombre_otro"
                     class="form-control"
                     placeholder="Otro orador (escribe el nombre)"
                 >
-
             </div>
-
             <div class="col-4">
-
                 <input
                     type="number"
                     min="0"
                     max="10"
-                    step="0.1"
+                    step="any"
                     name="${prefijo}_nota_otro"
                     class="form-control"
                     placeholder="Nota"
                 >
-
             </div>
-
         </div>
     `;
 
