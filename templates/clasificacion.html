@@ -25,8 +25,6 @@
 </div>
 
 
-
-
 <div class="clas-wrapper"
      id="bloque-oradores">
 
@@ -72,11 +70,10 @@ async function cargarClasificacion() {
 
     renderClasificacion(statsGlobal);
     statsFiltrados = statsGlobal;
-    
 }
 
-const NEON = ['#00eeff', '#0077ff', '#4433ff'];
-const NEON_TEXT = ['#0d1b2a', '#ffffff', '#ffffff'];
+const NEON = ['#00eeff', '#0077ff', '#4433ff', '#00bbcc'];
+const NEON_TEXT = ['#0d1b2a', '#ffffff', '#ffffff', '#0d1b2a'];
 
 function renderClasificacion(stats) {
     const lista = document.getElementById('clas-lista');
@@ -85,11 +82,13 @@ function renderClasificacion(stats) {
         return;
     }
     lista.innerHTML = stats.map((e, i) => {
-        const neon = i < 3 ? NEON[i] : '#3a5570';
-        const esNeon = i < 3;
+        const neon = i < 4 ? NEON[i] : '#1a3a5c';
+        const esNeon = i < 4;
+        const textColor = i < 4 ? NEON_TEXT[i] : '#aac';
+        const bgResto = i >= 4 ? 'background:#1a3a5c;' : '';
         return `
-        <div class="clas-fila ${esNeon ? 'clas-fila-neon' : ''}" style="border-left-color:${neon};">
-            <div class="clas-pos" style="${esNeon ? `background:${neon};color:${NEON_TEXT[i]}` : 'background:#3a5570;color:#aac'}">${i + 1}º</div>
+        <div class="clas-fila ${esNeon ? 'clas-fila-neon' : ''}" style="border-left-color:${neon};${bgResto}">
+            <div class="clas-pos" style="${esNeon ? `background:${neon};color:${textColor}` : 'background:#2a5a8c;color:#aac'}">${i + 1}º</div>
             <div class="clas-info">
                 <div class="clas-nombre">${e.colegio}</div>
                 <div class="clas-sub">
@@ -98,7 +97,7 @@ function renderClasificacion(stats) {
                     Perdidos: ${e.pp}
                 </div>
             </div>
-            <div class="clas-pts" style="${esNeon ? `background:${neon};color:${NEON_TEXT[i]}` : 'background:#3a5570;color:#ccd'}">${e.pts.toFixed(1)} pts</div>
+            <div class="clas-pts" style="${esNeon ? `background:${neon};color:${textColor}` : 'background:#2a5a8c;color:#ccd'}">${e.pts.toFixed(1)} pts</div>
         </div>`;
     }).join('');
 }
