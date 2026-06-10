@@ -4,63 +4,63 @@
 
 {% block content %}
 
-<div class="card">
+<div class="clas-wrapper">
 
-    <div class="card-header">
+    <h2 class="clas-titulo">
         🏛 Debates del Torneo
-    </div>
+    </h2>
 
-    <div class="card-body">
+    <p class="clas-subtitulo">
+        Resultados agrupados por ronda y sala.
+    </p>
 
-        {% if debates %}
+    {% if debates %}
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Ronda</th>
-                    <th>Sala</th>
-                    <th>A Favor</th>
-                    <th>En Contra</th>
-                    <th>Voto Juez 1</th>
-                    <th>Voto Juez 2</th>
-                    <th>Avisos</th>
-                    <th>Faltas</th>
-                    <th>Ganador Final</th>
-                </tr>
-            </thead>
+    <table class="clas-tabla">
 
-            <tbody>
+        <thead>
+            <tr>
+                <th>Ronda</th>
+                <th>Sala</th>
+                <th>A Favor</th>
+                <th>En Contra</th>
+                <th>Juez 1</th>
+                <th>Juez 2</th>
+                <th>Avisos</th>
+                <th>Faltas</th>
+                <th>Ganador</th>
+            </tr>
+        </thead>
 
-                {% for debate in debates %}
+        <tbody>
 
-                <tr>
-                    <td>{{ debate.ronda }}</td>
-                    <td>{{ debate.sala }}</td>
-                    <td>{{ debate.favor }}</td>
-                    <td>{{ debate.contra }}</td>
-                    <td>{{ debate.voto1 }}</td>
-                    <td>{{ debate.voto2 }}</td>
-                    <td>{{ debate.avisos }}</td>
-                    <td>{{ debate.faltas }}</td>
-                    <td>
-                        <strong>{{ debate.ganador }}</strong>
-                    </td>
-                </tr>
+            {% for debate in debates %}
 
-                {% endfor %}
+            <tr>
+                <td>{{ debate.ronda }}</td>
+                <td>{{ debate.sala }}</td>
+                <td>{{ debate.favor }}</td>
+                <td>{{ debate.contra }}</td>
+                <td>{{ debate.voto1 }}</td>
+                <td>{{ debate.voto2 }}</td>
+                <td>{{ debate.avisos }}</td>
+                <td>{{ debate.faltas }}</td>
+                <td><strong>{{ debate.ganador }}</strong></td>
+            </tr>
 
-            </tbody>
-        </table>
+            {% endfor %}
 
-        {% else %}
+        </tbody>
 
-        <p class="texto-centro">
-            No hay debates registrados.
-        </p>
+    </table>
 
-        {% endif %}
+    {% else %}
 
-    </div>
+    <p class="clas-vacio">
+        No hay debates registrados.
+    </p>
+
+    {% endif %}
 
 </div>
 
