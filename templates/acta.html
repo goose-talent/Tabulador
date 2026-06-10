@@ -443,19 +443,18 @@ document
             "ec"
         )
 );
-function obtenerNota(nombre){
-    {% if acta and acta.oradores %}
-    const oradores = {{ acta.oradores|tojson }};
+const oradoresGuardados =
+{{ acta.oradores|tojson if acta and acta.oradores else '[]' }};
 
-    for(let o of oradores){
+function obtenerNota(nombre){
+
+    for(let o of oradoresGuardados){
 
         if(o.nombre === nombre){
             return o.nota;
         }
 
     }
-
-    {% endif %}
 
     return "";
 }
