@@ -166,9 +166,7 @@ Acta Digital
                     {{ equipo.colegio }}
                 </option>
                 {% endfor %}
-
             </select>
-           
 
             <label class="form-label mt-3">
                 Puntuación
@@ -192,6 +190,10 @@ Acta Digital
                 <option value="0" {% if acta and acta.avisos_af == "0" %}selected{% endif %}>0 avisos</option>
                 <option value="1" {% if acta and acta.avisos_af == "1" %}selected{% endif %}>1 aviso</option>
                 <option value="2" {% if acta and acta.avisos_af == "2" %}selected{% endif %}>2 avisos</option>
+                <option value="3" {% if acta and acta.avisos_af == "3" %}selected{% endif %}>3 avisos</option>
+                <option value="4" {% if acta and acta.avisos_af == "4" %}selected{% endif %}>4 avisos</option>
+                <option value="5" {% if acta and acta.avisos_af == "5" %}selected{% endif %}>5 avisos</option>
+                <option value="6" {% if acta and acta.avisos_af == "6" %}selected{% endif %}>6 avisos</option>
             </select>
 
             <label class="form-label mt-3">
@@ -202,6 +204,10 @@ Acta Digital
                 <option value="0" {% if acta and acta.leves_af == "0" %}selected{% endif %}>0 faltas leves</option>
                 <option value="1" {% if acta and acta.leves_af == "1" %}selected{% endif %}>1 falta leve</option>
                 <option value="2" {% if acta and acta.leves_af == "2" %}selected{% endif %}>2 faltas leves</option>
+                <option value="3" {% if acta and acta.leves_af == "3" %}selected{% endif %}>3 faltas leves</option>
+                <option value="4" {% if acta and acta.leves_af == "4" %}selected{% endif %}>4 faltas leves</option>
+                <option value="5" {% if acta and acta.leves_af == "5" %}selected{% endif %}>5 faltas leves</option>
+                <option value="6" {% if acta and acta.leves_af == "6" %}selected{% endif %}>6 faltas leves</option>
             </select>
             <small class="text-muted">
                 Cada falta leve resta 0.5 puntos.
@@ -215,13 +221,15 @@ Acta Digital
                 <option value="0" {% if acta and acta.graves_af == "0" %}selected{% endif %}>0 faltas graves</option>
                 <option value="1" {% if acta and acta.graves_af == "1" %}selected{% endif %}>1 falta grave</option>
                 <option value="2" {% if acta and acta.graves_af == "2" %}selected{% endif %}>2 faltas graves</option>
+                <option value="3" {% if acta and acta.graves_af == "3" %}selected{% endif %}>3 faltas graves</option>
+                <option value="4" {% if acta and acta.graves_af == "4" %}selected{% endif %}>4 faltas graves</option>
+                <option value="5" {% if acta and acta.graves_af == "5" %}selected{% endif %}>5 faltas graves</option>
+                <option value="6" {% if acta and acta.graves_af == "6" %}selected{% endif %}>6 faltas graves</option>
             </select>
             <small class="text-danger">
                 Una falta grave implica derrota automática.
             </small>
-                
 
-            
             <div class="mt-4 p-3 bg-light rounded">
                 <strong>Resumen AF</strong>
                 <p id="resumen_af">Pendiente</p>
@@ -230,8 +238,6 @@ Acta Digital
         </div>
 
     </div>
-                
-            
 
     <div class="col-md-6">
 
@@ -257,7 +263,7 @@ Acta Digital
                 </option>
                 {% endfor %}
             </select>
-            
+
             <label class="form-label mt-3">
                 Puntuación
             </label>
@@ -280,6 +286,10 @@ Acta Digital
                 <option value="0" {% if acta and acta.avisos_ec == "0" %}selected{% endif %}>0 avisos</option>
                 <option value="1" {% if acta and acta.avisos_ec == "1" %}selected{% endif %}>1 aviso</option>
                 <option value="2" {% if acta and acta.avisos_ec == "2" %}selected{% endif %}>2 avisos</option>
+                <option value="3" {% if acta and acta.avisos_ec == "3" %}selected{% endif %}>3 avisos</option>
+                <option value="4" {% if acta and acta.avisos_ec == "4" %}selected{% endif %}>4 avisos</option>
+                <option value="5" {% if acta and acta.avisos_ec == "5" %}selected{% endif %}>5 avisos</option>
+                <option value="6" {% if acta and acta.avisos_ec == "6" %}selected{% endif %}>6 avisos</option>
             </select>
 
             <label class="form-label mt-3">
@@ -290,6 +300,10 @@ Acta Digital
                 <option value="0" {% if acta and acta.leves_ec == "0" %}selected{% endif %}>0 faltas leves</option>
                 <option value="1" {% if acta and acta.leves_ec == "1" %}selected{% endif %}>1 falta leve</option>
                 <option value="2" {% if acta and acta.leves_ec == "2" %}selected{% endif %}>2 faltas leves</option>
+                <option value="3" {% if acta and acta.leves_ec == "3" %}selected{% endif %}>3 faltas leves</option>
+                <option value="4" {% if acta and acta.leves_ec == "4" %}selected{% endif %}>4 faltas leves</option>
+                <option value="5" {% if acta and acta.leves_ec == "5" %}selected{% endif %}>5 faltas leves</option>
+                <option value="6" {% if acta and acta.leves_ec == "6" %}selected{% endif %}>6 faltas leves</option>
             </select>
             <small class="text-muted">
                 Cada falta leve resta 0.5 puntos.
@@ -303,12 +317,15 @@ Acta Digital
                 <option value="0" {% if acta and acta.graves_ec == "0" %}selected{% endif %}>0 faltas graves</option>
                 <option value="1" {% if acta and acta.graves_ec == "1" %}selected{% endif %}>1 falta grave</option>
                 <option value="2" {% if acta and acta.graves_ec == "2" %}selected{% endif %}>2 faltas graves</option>
+                <option value="3" {% if acta and acta.graves_ec == "3" %}selected{% endif %}>3 faltas graves</option>
+                <option value="4" {% if acta and acta.graves_ec == "4" %}selected{% endif %}>4 faltas graves</option>
+                <option value="5" {% if acta and acta.graves_ec == "5" %}selected{% endif %}>5 faltas graves</option>
+                <option value="6" {% if acta and acta.graves_ec == "6" %}selected{% endif %}>6 faltas graves</option>
             </select>
             <small class="text-danger">
                 Una falta grave implica derrota automática.
             </small>
-            
-            
+
             <div class="mt-4 p-3 bg-light rounded">
                 <strong>Resumen EC</strong>
                 <p id="resumen_ec">Pendiente</p>
@@ -449,11 +466,8 @@ function calcularResultado(){
         (levesEC * 0.5) +
         (Math.floor(avisosEC / 2) * 0.5);
 
-    let finalAF =
-        af - penalizacionAF;
-
-    let finalEC =
-        ec - penalizacionEC;
+    let finalAF = af - penalizacionAF;
+    let finalEC = ec - penalizacionEC;
 
     document.getElementById("resumen_af").innerHTML =
         `
@@ -487,117 +501,68 @@ function calcularResultado(){
         ganador = "Empate";
     }
 
-    document.getElementById("ganador").innerText =
-        ganador;
-
-    document.getElementById("marcador").innerText =
-        finalAF + " - " + finalEC;
+    document.getElementById("ganador").innerText = ganador;
+    document.getElementById("marcador").innerText = finalAF + " - " + finalEC;
 }
 
-document.querySelectorAll(
-    "input, select"
-).forEach(element => {
-
-    element.addEventListener(
-        "change",
-        calcularResultado
-    );
-
-    element.addEventListener(
-        "input",
-        calcularResultado
-    );
-
+document.querySelectorAll("input, select").forEach(element => {
+    element.addEventListener("change", calcularResultado);
+    element.addEventListener("input", calcularResultado);
 });
 
 document
 .getElementById("equipo_ec")
 .addEventListener("change", function(){
 
-    let af =
-        document.getElementById("equipo_af").value;
+    let af = document.getElementById("equipo_af").value;
+    let ec = document.getElementById("equipo_ec").value;
 
-    let ec =
-        document.getElementById("equipo_ec").value;
-
-    if(
-        af !== "Seleccionar" &&
-        af === ec
-    ){
-        alert(
-            "No puedes seleccionar el mismo equipo"
-        );
-
+    if(af !== "Seleccionar" && af === ec){
+        alert("No puedes seleccionar el mismo equipo");
         this.selectedIndex = 0;
     }
-
 });
+
 document
 .getElementById("equipo_af")
 .addEventListener(
     "change",
-    () =>
-        cargarOradores(
-            "equipo_af",
-            "oradores_af",
-            "af"
-        )
+    () => cargarOradores("equipo_af", "oradores_af", "af")
 );
 
 document
 .getElementById("equipo_ec")
 .addEventListener(
     "change",
-    () =>
-        cargarOradores(
-            "equipo_ec",
-            "oradores_ec",
-            "ec"
-        )
+    () => cargarOradores("equipo_ec", "oradores_ec", "ec")
 );
+
 const oradoresGuardados =
 {{ acta.oradores|tojson if acta and acta.oradores else '[]' }};
 
 function obtenerNota(nombre){
-
     for(let o of oradoresGuardados){
-
         if(o.nombre === nombre){
             return o.nota;
         }
-
     }
-
     return "";
 }
-async function cargarOradores(
-    equipoSelect,
-    contenedorId,
-    prefijo
-){
 
-    let colegio =
-        document.getElementById(equipoSelect).value;
+async function cargarOradores(equipoSelect, contenedorId, prefijo){
 
-    if(
-        colegio === "Seleccionar"
-    ){
+    let colegio = document.getElementById(equipoSelect).value;
+
+    if(colegio === "Seleccionar"){
         return;
     }
 
-    let respuesta =
-        await fetch(
-            "/equipo/" +
-            encodeURIComponent(colegio)
-        );
-
-    let equipo =
-        await respuesta.json();
+    let respuesta = await fetch("/equipo/" + encodeURIComponent(colegio));
+    let equipo = await respuesta.json();
 
     let html = "<h5>Oradores</h5>";
 
-    equipo.alumnos.forEach(
-    (alumno, i) => {
+    equipo.alumnos.forEach((alumno, i) => {
 
         html += `
             <div class="row mb-2">
@@ -627,14 +592,13 @@ async function cargarOradores(
                         class="form-control"
                         placeholder="Nota"
                         value="${obtenerNota(alumno)}"
-                    >    
+                    >
 
                 </div>
 
             </div>
         `;
-    }
-);
+    });
 
     html += `
         <div class="row mb-2 mt-3 pt-3" style="border-top: 1px dashed #ccc;">
@@ -667,26 +631,15 @@ async function cargarOradores(
         </div>
     `;
 
-    document.getElementById(
-        contenedorId
-    ).innerHTML = html;
+    document.getElementById(contenedorId).innerHTML = html;
 }
+
 {% if modo_edicion %}
 
 window.addEventListener("load", async () => {
 
-    await cargarOradores(
-        "equipo_af",
-        "oradores_af",
-        "af"
-    );
-
-    await cargarOradores(
-        "equipo_ec",
-        "oradores_ec",
-        "ec"
-    );
-
+    await cargarOradores("equipo_af", "oradores_af", "af");
+    await cargarOradores("equipo_ec", "oradores_ec", "ec");
     calcularResultado();
 
 });
