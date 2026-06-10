@@ -474,6 +474,13 @@ async def debates(request: Request):
             "ganador": ganador_final
         })
 
+    sala_orden = {"Auditorio": 0, "Ludoteca": 1, "Poli 2": 2}
+
+    lista_debates.sort(key=lambda x: (
+        int(x["ronda"].split(" ")[1]) if x["ronda"] and "Ronda" in x["ronda"] else 99,
+        sala_orden.get(x["sala"], 99)
+    ))
+
     return templates.TemplateResponse(
         request=request,
         name="debates.html",
