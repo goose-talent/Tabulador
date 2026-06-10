@@ -472,12 +472,14 @@ async def debates(request: Request):
                 elif acta.get("ganador") == equipo_ec:
                     votos_ec += 1
 
-    if votos_af > votos_ec:
-        ganador_final = equipo_af
+        if votos_af > votos_ec:
+            ganador_final = equipo_af
 
-    elif votos_ec > votos_af:
-        ganador_final = equipo_ec
+        elif votos_ec > votos_af:
+            ganador_final = equipo_ec
 
+        else:
+            ganador_final = "Empate"
         lista_debates.append({
             "id": debate["id"],
             "ronda": debate["ronda"],
