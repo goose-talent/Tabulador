@@ -164,6 +164,18 @@ async def exportar_datos():
     )
 
 
+@app.post("/importar_datos")
+async def importar_datos(request: Request):
+    datos = await request.json()
+    with open(
+        os.path.join(BASE_DIR, "datos", "debates.json"),
+        "w",
+        encoding="utf-8"
+    ) as f:
+        json.dump(datos, f, ensure_ascii=False, indent=4)
+    return {"ok": True}
+
+
 @app.delete("/debate/borrar/{id}")
 async def borrar_debate(id: str):
 
@@ -670,4 +682,5 @@ async def borrar_actas():
         json.dump([], f)
 
     return {"ok": True}
+    
     
