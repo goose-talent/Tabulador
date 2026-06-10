@@ -31,11 +31,13 @@
             <tr>
                 <th>Ronda</th>
                 <th>Sala</th>
-                <th>A Favor</th>
-                <th>En Contra</th>
-                <th>Votos de jueces</th>
-                <th>Avisos</th>
-                <th>Faltas</th>
+                <th>Equipo A Favor</th>
+                <th>Puntos AF</th>
+                <th>A y F (AF)</th>
+                <th>Equipo En Contra</th>
+                <th>Puntos EC</th>
+                <th>A y F (EC)</th>
+                <th>Jueces</th>
                 <th>Ganador</th>
                 <th>Acciones</th>
             </tr>
@@ -46,14 +48,42 @@
                 <td>{{ debate.ronda }}</td>
                 <td>{{ debate.sala }}</td>
                 <td>{{ debate.favor }}</td>
+                <td>{{ debate.puntos_af }}</td>
+                <td>
+                    {% if debate.avisos_af > 0 %}
+                        <span>{{ debate.avisos_af }} AV</span>
+                    {% endif %}
+                    {% if debate.leves_af > 0 %}
+                        <span>{{ debate.leves_af }} FL</span>
+                    {% endif %}
+                    {% if debate.graves_af > 0 %}
+                        <span style="color:red">{{ debate.graves_af }} FG</span>
+                    {% endif %}
+                    {% if debate.avisos_af == 0 and debate.leves_af == 0 and debate.graves_af == 0 %}
+                        —
+                    {% endif %}
+                </td>
                 <td>{{ debate.contra }}</td>
+                <td>{{ debate.puntos_ec }}</td>
+                <td>
+                    {% if debate.avisos_ec > 0 %}
+                        <span>{{ debate.avisos_ec }} AV</span>
+                    {% endif %}
+                    {% if debate.leves_ec > 0 %}
+                        <span>{{ debate.leves_ec }} FL</span>
+                    {% endif %}
+                    {% if debate.graves_ec > 0 %}
+                        <span style="color:red">{{ debate.graves_ec }} FG</span>
+                    {% endif %}
+                    {% if debate.avisos_ec == 0 and debate.leves_ec == 0 and debate.graves_ec == 0 %}
+                        —
+                    {% endif %}
+                </td>
                 <td>
                     {% for juez in debate.jueces %}
                     <div>{{ juez }}</div>
                     {% endfor %}
                 </td>
-                <td>{{ debate.avisos }}</td>
-                <td>{{ debate.faltas }}</td>
                 <td><strong>{{ debate.ganador }}</strong></td>
                 <td>
                     <a href="/debate/editar/{{ debate.id }}">
