@@ -187,6 +187,9 @@ Acta Digital
                 <option value="1" {% if acta and acta.leves_af == "1" %}selected{% endif %}>1 falta leve</option>
                 <option value="2" {% if acta and acta.leves_af == "2" %}selected{% endif %}>2 faltas leves</option>
             </select>
+            <small class="text-muted">
+                Cada falta leve resta 0.5 puntos.
+            </small>
 
             <label class="form-label mt-3">
                 Faltas graves
@@ -197,6 +200,9 @@ Acta Digital
                 <option value="1" {% if acta and acta.graves_af == "1" %}selected{% endif %}>1 falta grave</option>
                 <option value="2" {% if acta and acta.graves_af == "2" %}selected{% endif %}>2 faltas graves</option>
             </select>
+            <small class="text-danger">
+                Una falta grave implica derrota automática.
+            </small>
                 
 
             
@@ -269,6 +275,9 @@ Acta Digital
                 <option value="1" {% if acta and acta.leves_ec == "1" %}selected{% endif %}>1 falta leve</option>
                 <option value="2" {% if acta and acta.leves_ec == "2" %}selected{% endif %}>2 faltas leves</option>
             </select>
+            <small class="text-muted">
+                Cada falta leve resta 0.5 puntos.
+            </small>
 
             <label class="form-label mt-3">
                 Faltas graves
@@ -279,6 +288,9 @@ Acta Digital
                 <option value="1" {% if acta and acta.graves_ec == "1" %}selected{% endif %}>1 falta grave</option>
                 <option value="2" {% if acta and acta.graves_ec == "2" %}selected{% endif %}>2 faltas graves</option>
             </select>
+            <small class="text-danger">
+                Una falta grave implica derrota automática.
+            </small>
             
             
             <div class="mt-4 p-3 bg-light rounded">
@@ -414,10 +426,12 @@ function calcularResultado(){
         document.getElementById("equipo_ec").value;
 
     let penalizacionAF =
-        levesAF + Math.floor(avisosAF / 2);
+        (levesAF * 0.5) +
+        (Math.floor(avisosAF / 2) * 0.5);
 
     let penalizacionEC =
-        levesEC + Math.floor(avisosEC / 2);
+        (levesEC * 0.5) +
+        (Math.floor(avisosEC / 2) * 0.5);
 
     let finalAF =
         af - penalizacionAF;

@@ -24,8 +24,7 @@
                 <th>Sala</th>
                 <th>A Favor</th>
                 <th>En Contra</th>
-                <th>Juez 1</th>
-                <th>Juez 2</th>
+                <th>Votos de jueces</th>
                 <th>Avisos</th>
                 <th>Faltas</th>
                 <th>Ganador</th>
@@ -42,8 +41,15 @@
                 <td>{{ debate.sala }}</td>
                 <td>{{ debate.favor }}</td>
                 <td>{{ debate.contra }}</td>
-                <td>{{ debate.voto1 }}</td>
-                <td>{{ debate.voto2 }}</td>
+                <td>
+
+                {% for juez in debate.jueces %}
+
+                <div>{{ juez }}</div>
+
+                {% endfor %}
+
+                </td>
                 <td>{{ debate.avisos }}</td>
                 <td>{{ debate.faltas }}</td>
                 <td><strong>{{ debate.ganador }}</strong></td>

@@ -65,8 +65,8 @@ async def guardar_acta(request: Request):
     graves_af = int(datos.get("graves_af") or 0)
     graves_ec = int(datos.get("graves_ec") or 0)
 
-    penalizacion_af = leves_af + (avisos_af // 2)
-    penalizacion_ec = leves_ec + (avisos_ec // 2)
+    penalizacion_af = (leves_af * 0.5) + ((avisos_af // 2) * 0.5)
+    penalizacion_ec = (leves_ec * 0.5) + ((avisos_ec // 2) * 0.5)
 
     final_af = puntos_af - penalizacion_af
     final_ec = puntos_ec - penalizacion_ec
@@ -420,51 +420,63 @@ async def debates(request: Request):
                 "favor": acta.get("equipo_af"),
                 "contra": acta.get("equipo_ec"),
                 "jueces": [],
-                "avisos": 0,
-                "faltas": 0
+
+                "avisos": (
+                    int(acta.get("avisos_af", 0))
+                    + int(acta.get("avisos_ec", 0))
+                ),
+
+                "faltas": (
+                    int(acta.get("leves_af", 0))
+                    + int(acta.get("leves_ec", 0))
+                    + int(acta.get("graves_af", 0))
+                    + int(acta.get("graves_ec", 0))
+                )
             }
 
-        agrupados[clave]["jueces"].append({
-            "juez": acta.get("juez"),
-            "ganador": acta.get("ganador")
-        })
-
-        agrupados[clave]["avisos"] += (
-            int(acta.get("avisos_af", 0))
-            + int(acta.get("avisos_ec", 0))
+        agrupados[clave]["jueces"].append(
+            acta.get("juez")
         )
 
-        agrupados[clave]["faltas"] += (
-            int(acta.get("leves_af", 0))
-            + int(acta.get("leves_ec", 0))
-            + int(acta.get("graves_af", 0))
-            + int(acta.get("graves_ec", 0))
-        )
+       
 
     lista_debates = []
 
     for debate in agrupados.values():
 
-        voto1 = "-"
-        voto2 = "-"
-
-        for voto in debate["jueces"]:
-
-            if voto["juez"] == "Juez 1":
-                voto1 = voto["ganador"]
-
-            elif voto["juez"] == "Juez 2":
-                voto2 = voto["ganador"]
-
-        votos = [voto1, voto2]
+        jueces = debate["jueces"]
 
         ganador_final = "-"
 
-        if votos.count(debate["favor"]) > votos.count(debate["contra"]):
-            ganador_final = debate["favor"]
+        equipo_af = debate["favor"]
+        equipo_ec = debate["contra"]
 
-        elif votos.count(debate["contra"]) > votos.count(debate["favor"]):
-            ganador_final = debate["contra"]
+        votos_af = 0
+        votos_ec = 0
+
+        clave = (
+            debate["ronda"],
+            debate["sala"]
+        )
+
+        for acta in actas:
+
+            if (
+                acta.get("ronda") == clave[0]
+                and acta.get("sala") == clave[1]
+            ):
+
+                if acta.get("ganador") == equipo_af:
+                    votos_af += 1
+
+                elif acta.get("ganador") == equipo_ec:
+                    votos_ec += 1
+
+    if votos_af > votos_ec:
+        ganador_final = equipo_af
+
+    elif votos_ec > votos_af:
+        ganador_final = equipo_ec
 
         lista_debates.append({
             "id": debate["id"],
@@ -472,8 +484,7 @@ async def debates(request: Request):
             "sala": debate["sala"],
             "favor": debate["favor"],
             "contra": debate["contra"],
-            "voto1": voto1,
-            "voto2": voto2,
+            "jueces": jueces,
             "avisos": debate["avisos"],
             "faltas": debate["faltas"],
             "ganador": ganador_final
@@ -559,8 +570,8 @@ async def actualizar_debate(
     graves_af = int(datos.get("graves_af") or 0)
     graves_ec = int(datos.get("graves_ec") or 0)
 
-    penalizacion_af = leves_af + (avisos_af // 2)
-    penalizacion_ec = leves_ec + (avisos_ec // 2)
+    penalizacion_af = (leves_af * 0.5) + ((avisos_af // 2) * 0.5)
+    penalizacion_ec = (leves_ec * 0.5) + ((avisos_ec // 2) * 0.5)
 
     final_af = puntos_af - penalizacion_af
     final_ec = puntos_ec - penalizacion_ec
